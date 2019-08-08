@@ -8,6 +8,7 @@
 # 
 #
 require 'datashift'
+require_relative 'sandbox_helper'
 
 module Datashift
       
