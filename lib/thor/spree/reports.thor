@@ -19,7 +19,7 @@ module DatashiftSpree
     
       def no_image(report = nil)
 
-        require 'spree_ecom'
+        # require 'spree_ecom'
         require 'csv_exporter'
         require 'image_loader'
         require 'exporters/excel_exporter'

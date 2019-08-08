@@ -5,8 +5,6 @@
 #
 # Details::   Specific over-rides/additions to support Spree Products
 #
-require_relative 'spree_loading'
-
 module DataShift
 
   class SpreeLoaderBase < LoaderBase

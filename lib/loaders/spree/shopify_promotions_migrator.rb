@@ -8,7 +8,7 @@
 #                 Promotions
 #
 require 'spree_loader_base'
-require 'spree_ecom'
+# require 'spree_ecom'
 require 'promotions_rules_actions.rb'
 
 module DataShift

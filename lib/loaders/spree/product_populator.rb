@@ -11,7 +11,7 @@ module DataShift
 
     class ProductPopulator < Populator
 
-      include SpreeLoading
+      include DataShift::SpreeLoading
 
       include DataShift::Logging
       extend DataShift::Logging
@@ -56,6 +56,8 @@ module DataShift
 
           if(data.to_s.include?(multi_assoc_delim))
 
+            record.save_if_new
+
             # Check if we processed Option Types and assign  per option
             values = data.to_s.split(multi_assoc_delim)
 
@@ -70,6 +72,8 @@ module DataShift
         elsif(method_binding.operator?('variant_cost_price') && product_load_object.variants.size > 0)
 
           if(data.to_s.include?(multi_assoc_delim))
+
+            product_load_object.save_if_new
 
             # Check if we processed Option Types and assign  per option
             values = data.to_s.split(multi_assoc_delim)
@@ -86,10 +90,13 @@ module DataShift
 
           if(data.to_s.include?(multi_assoc_delim))
 
+            product_load_object.save_if_new
+
             # Check if we processed Option Types and assign  per option
             values = data.to_s.split(multi_assoc_delim)
 
             if(product_load_object.variants.size == values.size)
+              logger.info("Updating variant SKU #{values[i].to_s}")
               product_load_object.variants.each_with_index {|v, i| v.sku = values[i].to_s }
               product_load_object.save
             else
@@ -249,7 +256,7 @@ module DataShift
               i = product_load_object.variants.size + 1
 
               product_load_object.variants.create!(
-                :sku => "#{product_load_object.sku}_#{i}",
+                # :sku => "#{product_load_object.sku}_#{i}",  # do not assign default
                 :price => product_load_object.price,
                 :weight => product_load_object.weight,
                 :height => product_load_object.height,
