@@ -111,9 +111,9 @@ module DataShift
     # Load all public datashift spree Thor commands and make them available throughout app
 
     def self.load_commands
-      base = File.join(library_path, 'tasks')
+      base = File.join(library_path, 'thor')
 
-      Dir["#{base}/*.thor"].each do |f|
+      Dir["#{base}/**/*.thor"].each do |f|
         next unless File.file?(f)
         Thor::Util.load_thorfile(f)
       end
