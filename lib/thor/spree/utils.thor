@@ -20,12 +20,11 @@ module DatashiftSpree
     method_option :taxons, :aliases => '-t', :type => :boolean, :desc => "WARNING : deletes whole Taxonomy tree"
 
     def cleanup()
-
       require File.expand_path('config/environment.rb')
 
       # require 'spree_ecom'
 
-      require File.expand_path('config/environment.rb')
+      # require File.expand_path('config/environment.rb')
 
       ActiveRecord::Base.connection.execute("TRUNCATE spree_products_taxons")
       ActiveRecord::Base.connection.execute("TRUNCATE spree_product_promotion_rules")
@@ -36,7 +35,7 @@ module DatashiftSpree
       }
 
       cleanup += ["Taxonomy", "Taxon"] if(options[:taxons])
-      
+
       cleanup.each do |k|
         klass = DataShift::SpreeEcom::get_spree_class(k)
         if(klass)

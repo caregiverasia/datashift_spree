@@ -119,6 +119,9 @@ module DataShift
       end
     end
 
+    def self.get_spree_class(k)
+      Object.const_get("Spree::#{k}")
+    end
   end
 end
 
